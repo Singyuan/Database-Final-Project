@@ -22,12 +22,12 @@ public class UserService {
         userRepository.save(user);
     }
 
-    // @Transactional
-    // public List<Product> getAllProducts() {
-    //     return productRepository.findAll();
-    // }
+    @Transactional
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    // public Optional<Product> getProduct(Long id) {
-    //     return productRepository.findById(id);
-    // }
+    public Optional<User> getUser(Long id) {
+        return userRepository.findById(id);
+    }
 }

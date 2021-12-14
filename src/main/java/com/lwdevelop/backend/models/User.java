@@ -2,9 +2,7 @@
 package com.lwdevelop.backend.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
-import java.sql.Date;
 
 @Entity
 @Table(name = "user")
@@ -28,21 +26,8 @@ public class User {
     @Size(max = 10)
     private String type;
 
-    // @Size(max = 40)
-    // private String picture;
-
-    // @PositiveOrZero(message = "Value should zero or positive.")
-    // private Integer inventory;
-
-    // @PositiveOrZero(message = "Value should zero or positive.")
-    // private Integer price;
-
-    // private Date startSaleTime;
-
-    // private Date endSaleTime;
-
-    // public User() {
-    // }
+    public User() {
+    }
 
     public User(String name, String email, String password, String phone, String type) {
         this.name = name;
@@ -50,74 +35,53 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.type = type;
-        // this.picture = picture;
-        // this.inventory = inventory;
-        // this.price = price;
-        // this.startSaleTime = startSaleTime;
-        // this.endSaleTime = endSaleTime;
     }
 
-    // public Long getId() {
-    //     return id;
-    // }
+    public Long getId() {
+        return id;
+    }
 
     // public void setId(Long id) {
     //     this.id = id;
     // }
 
-    // public String getName() {
-    //     return name;
-    // }
+    public String getName() {
+        return name;
+    }
 
     // public void setName(String name) {
     //     this.name = name;
     // }
 
-    // public String getDescription() {
-    //     return description;
+    public String getEmail() {
+        return email;
+    }
+
+    // public void setEmail(String email) {
+    //     this.email = email;
     // }
 
-    // public void setDescription(String description) {
-    //     this.description = description;
+    public String getPassword() {
+        return password;
+    }
+
+    // public void setPassword(String password){
+    //     this.password = password;
     // }
 
-    // public String getPicture() {
-    //     return picture;
+    public String getPhone() {
+        return email;
+    }
+
+    // public void setPhone(String phone) {
+    //     this.phone = phone;
     // }
 
-    // public void setPicture(String picture) {
-    //     this.picture = picture;
-    // }
+    public String getType() {
+        return email;
+    }
 
-    // public Integer getInventory() {
-    //     return inventory;
-    // }
-
-    // public void setInventory(Integer inventory) {
-    //     this.inventory = inventory;
-    // }
-
-    // public Integer getPrice() {
-    //     return price;
-    // }
-
-    // public void setPrice(Integer price) {
-    //     this.price = price;
-    // }
-
-    // public Date getStartSaleTime() {
-    //     return startSaleTime;
-    // }
-
-    // public void setStartSaleTime(Date startSaleTime) {
-    //     this.startSaleTime = startSaleTime;
-    // }
-
-    // public Date getEndSaleTime() {
-    //     return endSaleTime;
-    // }
-
-    // public void setEndSaleTime(Date endSaleTime) {
-    //     this.endSaleTime = endSaleTime;
+    // public void setType(String type) {
+    //     this.type = type;
     // }
 }

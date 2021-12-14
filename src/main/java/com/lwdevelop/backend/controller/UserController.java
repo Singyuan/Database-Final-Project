@@ -20,7 +20,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserService UserService;
+    UserService userService;
 
     @PostMapping("/users")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
@@ -29,32 +29,29 @@ public class UserController {
                 userRequest.getPassword(),
                 userRequest.getPhone(),
                 "Buyer"
-                // userRequest.getPrice(),
-                // userRequest.getStartSaleTime(),
-                // userRequest.getEndSaleTime()
         );
 
-        UserService.save(user);
+        userService.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Your product has been successfully created!"));
 
     }
 
-    // @GetMapping("/products")
-    // public ResponseEntity<?> getAllProducts() {
-    //     List<Product> products = new ArrayList<>();
-    //     products = productService.getAllProducts();
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        users = userService.getAllUsers();
 
-    //     return ResponseEntity.ok(products);
+        return ResponseEntity.ok(users);
 
-    // }
+    }
 
-    // @GetMapping("/products/{id}")
-    // public ResponseEntity<?> getProduct(@PathVariable Long id) {
-    //     Product product = productService.getProduct(id)
-    //             .orElseThrow(() -> new RuntimeException("Product Not Found with id: " + id));
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable Long id) {
+        User user = userService.getUser(id)
+                .orElseThrow(() -> new RuntimeException("Product Not Found with id: " + id));
 
-    //     return ResponseEntity.ok(product);
-    // }
+        return ResponseEntity.ok(user);
+    }
 }
 
