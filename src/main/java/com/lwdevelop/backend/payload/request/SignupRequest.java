@@ -17,6 +17,7 @@ public class SignupRequest {
     private String email;
 
     private Set<String> type;
+    // private String type;
 
     @NotBlank
     @Size(min = 6, max = 40)
