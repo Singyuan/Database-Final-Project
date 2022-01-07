@@ -1,4 +1,3 @@
-// response to frontend
 package com.lwdevelop.backend.payload.response;
 
 public class MessageResponse {

@@ -1,31 +1,30 @@
-// data format for json
 package com.lwdevelop.backend.payload.request;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
-public class UserRequest {
+public class SignupRequest {
 
     @NotBlank
     @Size(min = 3, max = 20)
     private String name;
 
     @NotBlank
-    @Size(min = 3, max = 80)
+    @Size(max = 50)
+    @Email
     private String email;
 
+    private Set<String> type;
+
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 6, max = 40)
     private String password;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 6, max = 40)
     private String phone;
-
-    // @NotBlank
-    @Size(min = 0, max = 10)
-    private String type;
-
 
     public String getName() {
         return name;
@@ -43,6 +42,14 @@ public class UserRequest {
         this.email = email;
     }
 
+    public Set<String> getType() {
+        return type;
+    }
+
+    public void setType(Set<String> type) {
+        this.type = type;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -57,13 +64,5 @@ public class UserRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

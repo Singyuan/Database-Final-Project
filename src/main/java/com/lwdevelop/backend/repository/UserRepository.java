@@ -1,11 +1,18 @@
-// write/read the database (sqlite) following the rule of model
 package com.lwdevelop.backend.repository;
 
 import com.lwdevelop.backend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-// directly use known package to write into sqlite
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    Boolean existsByEmail(String email);
+
+    Optional<User> findByEmail(String email);
+
+    @Override
+    Optional<User> findById(Long id);
 }

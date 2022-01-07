@@ -1,13 +1,13 @@
-// create database (sqlite) including attribute, table, ...
 package com.lwdevelop.backend.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,8 @@ public class Product {
     @Size(max = 40)
     private String description;
 
+//    @Lob
+//    private byte[] picture;
     @Size(max = 40)
     private String picture;
 
@@ -31,6 +33,9 @@ public class Product {
     private Date startSaleTime;
 
     private Date endSaleTime;
+
+    @OneToMany(mappedBy = "product",cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<OrderDetail> orderDetails;
 
     public Product() {
     }
@@ -107,5 +112,13 @@ public class Product {
 
     public void setEndSaleTime(Date endSaleTime) {
         this.endSaleTime = endSaleTime;
+    }
+
+    public Set<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

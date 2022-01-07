@@ -1,26 +1,27 @@
-// data format for json
 package com.lwdevelop.backend.payload.request;
 
-public class OrderRequest {    
+import javax.validation.constraints.PositiveOrZero;
 
-    private Long productID;
+public class OrderRequest {
+    @PositiveOrZero
+    private Long productId;
 
+    @PositiveOrZero
     private int amount;
 
-
-    public Long getProductID() {
-        return productID;
+    public Long getProductId() {
+        return productId;
     }
 
-    // public void setProductID(int productID) {
-    //     this.productID = productID;
-    // }
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
     public int getAmount() {
         return amount;
     }
 
-    // public void setAmount(int amount) {
-    //     this.amount = amount;
-    // }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

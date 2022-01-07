@@ -1,4 +1,3 @@
-// not necessary: control --> service --> repo
 package com.lwdevelop.backend.service;
 
 import com.lwdevelop.backend.models.Product;
@@ -7,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +26,13 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
     public Optional<Product> getProduct(Long id) {
         return productRepository.findById(id);
+    }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 }

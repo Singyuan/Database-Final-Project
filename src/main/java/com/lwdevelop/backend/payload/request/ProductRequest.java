@@ -1,4 +1,3 @@
-// data format for json
 package com.lwdevelop.backend.payload.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
