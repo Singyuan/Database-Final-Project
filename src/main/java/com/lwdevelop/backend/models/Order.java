@@ -13,10 +13,12 @@ public class Order {
 
     private Date timestamp;
 
+    // one user --(order)--> many orders
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "users_id")
     private User user;
 
+    // one order --(contain)--> many order details (products)
     @OneToMany(mappedBy = "order",cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<OrderDetail> orderDetails;
 

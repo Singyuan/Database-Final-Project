@@ -34,6 +34,7 @@ public class Product {
 
     private Date endSaleTime;
 
+    // one product --(divide into)--> many product detail
     @OneToMany(mappedBy = "product",cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<OrderDetail> orderDetails;
 

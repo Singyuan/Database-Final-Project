@@ -31,12 +31,14 @@ public class User {
     @Size(max = 120)
     private String phone;
 
+    // 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "users_type",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
     private Set<Type> types = new HashSet<>();
 
+    // one user --(order)--> many order
     @OneToMany(mappedBy = "user",cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<Order> orders;
 

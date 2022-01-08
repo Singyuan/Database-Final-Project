@@ -55,6 +55,7 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Email is already in use!"));
         }
+
         // Create new user's account
         User user = new User(signUpRequest.getName(),
                 signUpRequest.getEmail(),

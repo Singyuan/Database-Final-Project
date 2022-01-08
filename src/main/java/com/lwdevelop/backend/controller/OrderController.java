@@ -42,6 +42,7 @@ public class OrderController {
     OrderDetailService orderDetailService;
 
     @PostMapping
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER')")
     public ResponseEntity<?> createOrder(@Valid @RequestBody Set<OrderRequest> orderRequests, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userService.getUser(userDetails.getId())
@@ -62,6 +63,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> getAllOrder() {
         List<Order> orders = orderService.getAllOrder();
         List<OrdersResponse.Order> orderList = new ArrayList<>();
@@ -78,6 +80,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER')")
     public ResponseEntity<?> getOrder(@PathVariable Long id) {
         Order order = orderService.getOrder(id)
                 .orElseThrow(() -> new RuntimeException("Error: Order is not found."));

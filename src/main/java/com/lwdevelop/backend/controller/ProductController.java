@@ -30,7 +30,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping
-   @PreAuthorize("hasRole('SELLER')")
+    @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequest productRequest) throws IOException {
 //        File file = new File("src/main/resources/static/123.png");
 //        byte[] picInBytes = new byte[(int) file.length()];
