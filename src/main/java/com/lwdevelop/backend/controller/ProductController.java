@@ -11,11 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +29,17 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping
-    @PreAuthorize("hasRole('SELLER')")
+//    @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequest productRequest) throws IOException {
-//        File file = new File("src/main/resources/static/123.png");
-//        byte[] picInBytes = new byte[(int) file.length()];
-//        FileInputStream fileInputStream = new FileInputStream(file);
-//        fileInputStream.read(picInBytes);
-//        fileInputStream.close();
+        // File file = new File("src/main/resources/static/123.png");
+        // byte[] picInBytes = new byte[(int) file.length()];
+        // FileInputStream fileInputStream = new FileInputStream(file);
+        // fileInputStream.read(picInBytes);
+        // fileInputStream.close();
+        // System.out.println("aaa"+picInBytes);
+        // FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/static/456.png");
+        // fileOutputStream.write(picInBytes);
+        // fileOutputStream.close();
         Product product = new Product(productRequest.getName(),
                 productRequest.getDescription(),
                 productRequest.getPicture(),
@@ -60,7 +63,7 @@ public class ProductController {
             ProductsResponse.Product tmpProduct = new ProductsResponse.Product(product.getId(), product.getName(), product.getDescription(), product.getPicture(), product.getInventory(), product.getPrice(), product.getStartSaleTime(), product.getEndSaleTime());
             productList.add(tmpProduct);
         });
-        return ResponseEntity.ok(new ProductsResponse(HttpStatus.OK.value(), "Your products have been successfully found", productList));
+        return ResponseEntity.ok(new ProductsResponse(HttpStatus.OK.value(), "All products have been successfully found", productList));
 
     }
 
@@ -73,6 +76,8 @@ public class ProductController {
         productList.add(tmpProduct);
         return ResponseEntity.ok(new ProductsResponse(HttpStatus.OK.value(), "Your product has been successfully found", productList));
     }
+
+    
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {

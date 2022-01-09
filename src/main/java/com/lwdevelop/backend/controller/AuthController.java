@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -55,7 +56,6 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Email is already in use!"));
         }
-
         // Create new user's account
         User user = new User(signUpRequest.getName(),
                 signUpRequest.getEmail(),
@@ -104,8 +104,9 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId()));
+        // return ResponseEntity.ok(new JwtResponse(jwt,
+        //         userDetails.getId()));
+        return ResponseEntity.ok(new JwtResponse(HttpStatus.OK.value(), "Your token is as follow.", new JwtResponse.Jwt(jwt, userDetails.getId())));
     }
 
     @GetMapping("/me")
@@ -114,13 +115,13 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new UserResponse(userDetails.getId(),
-                userDetails.getName(),
-                userDetails.getAuthorities().stream()
+        return ResponseEntity.ok(new UserResponse(HttpStatus.OK.value(), "Your account has been successfully found", new UserResponse.User(userDetails.getId(),
+        userDetails.getName(),
+        userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList()),
-                userDetails.getEmail(),
-                userDetails.getPhone()));
+        userDetails.getEmail(),
+        userDetails.getPhone())));
     }
 
     @PatchMapping("/{id}")

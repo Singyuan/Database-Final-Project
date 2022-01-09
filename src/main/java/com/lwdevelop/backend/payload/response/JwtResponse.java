@@ -1,38 +1,72 @@
 package com.lwdevelop.backend.payload.response;
 
 public class JwtResponse {
-    private String token;
-    private String type = "Bearer";
-    private Long id;
+    private int status;
+    private String message;
+    private Jwt jwt;
 
-    public JwtResponse(String accessToken, Long id) {
-        this.token = accessToken;
-        this.id = id;
+    public static class Jwt {
+        private String token;
+        private String type = "Bearer";
+        private Long id;
+
+        public Jwt(String accessToken, Long id) {
+            this.token = accessToken;
+            this.id = id;
+        }
+
+        public String getAccessToken() {
+            return token;
+        }
+
+        public void setAccessToken(String accessToken) {
+            this.token = accessToken;
+        }
+
+        public String getTokenType() {
+            return type;
+        }
+
+        public void setTokenType(String tokenType) {
+            this.type = tokenType;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+    }
+    public JwtResponse(int status, String message, Jwt jwt) {
+        this.status = status;
+        this.message = message;
+        this.jwt = jwt;
     }
 
-    public String getAccessToken() {
-        return token;
+    public int getStatus() {
+        return status;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getTokenType() {
-        return type;
+    public String getMessage() {
+        return message;
     }
 
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Long getId() {
-        return id;
+    public Jwt getUser() {
+        return jwt;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser(Jwt jwt) {
+        this.jwt = jwt;
     }
-
 
 }

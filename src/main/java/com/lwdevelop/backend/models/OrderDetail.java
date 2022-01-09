@@ -10,7 +10,6 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // one order --(contain)--> many order detail
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "orders_id")
     private Order order;
@@ -18,7 +17,6 @@ public class OrderDetail {
     @PositiveOrZero(message = "Value should zero or positive.")
     private Integer amount;
 
-    // many product detail --(order)--> one product
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "products_id")
     private Product product;

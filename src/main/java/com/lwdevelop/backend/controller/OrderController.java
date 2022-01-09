@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/orders")
-@PreAuthorize("hasRole('BUYER') or hasRole('SELLER')")
 public class OrderController {
 
     @Autowired
@@ -47,7 +47,10 @@ public class OrderController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userService.getUser(userDetails.getId())
                 .orElseThrow(() -> new RuntimeException("Error: User is not found."));
-        Order order = new Order();
+        Date tmpDate = new Date();
+        java.sql.Date date = new java.sql.Date(tmpDate.getTime());
+        Order order = new Order(date);
+        // write each item in order into order detail
         orderRequests.forEach(orderRequest -> {
             Product product = productService.getProduct(orderRequest.getProductId())
                     .orElseThrow(() -> new RuntimeException("Error: Product is not found."));
@@ -55,9 +58,10 @@ public class OrderController {
             orderDetailService.save(orderDetail);
         });
 
+
         order.setUser(user);
         orderService.save(order);
-
+        
         return ResponseEntity.ok(new MessageResponse("Your product has been successfully created!"));
 
     }
@@ -76,7 +80,7 @@ public class OrderController {
             OrdersResponse.Order tmpOrder = new OrdersResponse.Order(order.getId(), order.getUser().getName(), order.getUser().getEmail(), order.getUser().getPhone(), order.getTimestamp(), productList);
             orderList.add(tmpOrder);
         });
-        return ResponseEntity.ok(new OrdersResponse(200, "ok", orderList));
+        return ResponseEntity.ok(new OrdersResponse(200, "All orders have been successfully found", orderList));
     }
 
     @GetMapping("/{id}")
@@ -92,7 +96,7 @@ public class OrderController {
         OrdersResponse.Order tmpOrder = new OrdersResponse.Order(order.getId(), order.getUser().getName(), order.getUser().getEmail(), order.getUser().getPhone(), order.getTimestamp(), productList);
         List<OrdersResponse.Order> orderList = new ArrayList<>();
         orderList.add(tmpOrder);
-        return ResponseEntity.ok(new OrdersResponse(200, "ok", orderList));
+        return ResponseEntity.ok(new OrdersResponse(200, "Your order has been successfully found", orderList));
 
     }
 }
