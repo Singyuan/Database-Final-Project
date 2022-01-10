@@ -29,17 +29,8 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping
-//    @PreAuthorize("hasRole('SELLER')")
+   @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequest productRequest) throws IOException {
-        // File file = new File("src/main/resources/static/123.png");
-        // byte[] picInBytes = new byte[(int) file.length()];
-        // FileInputStream fileInputStream = new FileInputStream(file);
-        // fileInputStream.read(picInBytes);
-        // fileInputStream.close();
-        // System.out.println("aaa"+picInBytes);
-        // FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/static/456.png");
-        // fileOutputStream.write(picInBytes);
-        // fileOutputStream.close();
         Product product = new Product(productRequest.getName(),
                 productRequest.getDescription(),
                 productRequest.getPicture(),
@@ -71,7 +62,7 @@ public class ProductController {
     public ResponseEntity<?> getProduct(@PathVariable Long id) {
         Product product = productService.getProduct(id)
                 .orElseThrow(() -> new RuntimeException("Product Not Found with id: " + id));
-        ProductsResponse.Product tmpProduct = new ProductsResponse.Product(product.getId(), product.getName(), product.getDescription(), null, product.getInventory(), product.getPrice(), product.getStartSaleTime(), product.getEndSaleTime());
+        ProductsResponse.Product tmpProduct = new ProductsResponse.Product(product.getId(), product.getName(), product.getDescription(), product.getPicture(), product.getInventory(), product.getPrice(), product.getStartSaleTime(), product.getEndSaleTime());
         List<ProductsResponse.Product> productList = new ArrayList<>();
         productList.add(tmpProduct);
         return ResponseEntity.ok(new ProductsResponse(HttpStatus.OK.value(), "Your product has been successfully found", productList));
